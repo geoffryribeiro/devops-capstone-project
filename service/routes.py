@@ -3,11 +3,13 @@ Account Service
 
 This microservice handles the lifecycle of Accounts
 """
+
 # pylint: disable=unused-import
 from flask import jsonify, request, make_response, abort, url_for   # noqa: F401
 from service.models import Account
 from service.common import status  # HTTP Status Codes
 from . import app  # Import Flask application
+
 
 ############################################################
 # Health Endpoint
@@ -16,6 +18,7 @@ from . import app  # Import Flask application
 def health():
     """Health Status"""
     return jsonify(dict(status="OK")), status.HTTP_200_OK
+
 
 ############################################################
 # Root Index Endpoint
@@ -31,6 +34,7 @@ def index():
         status.HTTP_200_OK,
     )
 
+
 ############################################################
 # Utility Function to Check Content-Type
 ############################################################
@@ -41,6 +45,7 @@ def check_content_type(media_type):
             status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
             f"Content-Type must be {media_type}"
         )
+
 
 ############################################################
 # Create a New Account
@@ -60,6 +65,7 @@ def create_account():
         {"Location": location}
     )
 
+
 ############################################################
 # List All Accounts
 ############################################################
@@ -69,6 +75,7 @@ def list_accounts():
     accounts = Account.all()
     results = [account.serialize() for account in accounts]
     return jsonify(results), status.HTTP_200_OK
+
 
 ############################################################
 # Read a Single Account
@@ -80,6 +87,7 @@ def get_account(account_id):
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id {account_id} not found.")
     return jsonify(account.serialize()), status.HTTP_200_OK
+
 
 ############################################################
 # Update an Existing Account
@@ -95,6 +103,7 @@ def update_account(account_id):
     account.update()
     return jsonify(account.serialize()), status.HTTP_200_OK
 
+
 ############################################################
 # Delete an Account
 ############################################################
@@ -105,3 +114,5 @@ def delete_account(account_id):
     if account:
         account.delete()
     return "", status.HTTP_204_NO_CONTENT
+
+
