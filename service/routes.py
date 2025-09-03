@@ -5,7 +5,7 @@ This microservice handles the lifecycle of Accounts
 """
 
 # pylint: disable=unused-import
-from flask import jsonify, request, make_response, abort, url_for   # noqa: F401
+from flask import jsonify, request, make_response, abort, url_for  # noqa: F401
 from service.models import Account
 from service.common import status  # HTTP Status Codes
 from . import app  # Import Flask application
@@ -14,6 +14,8 @@ from . import app  # Import Flask application
 ############################################################
 # Health Endpoint
 ############################################################
+
+
 @app.route("/health")
 def health():
     """Health Status"""
@@ -23,6 +25,8 @@ def health():
 ############################################################
 # Root Index Endpoint
 ############################################################
+
+
 @app.route("/")
 def index():
     """Root URL response"""
@@ -38,6 +42,8 @@ def index():
 ############################################################
 # Utility Function to Check Content-Type
 ############################################################
+
+
 def check_content_type(media_type):
     """Checks that the media type is correct"""
     if request.headers.get("Content-Type") != media_type:
@@ -50,6 +56,8 @@ def check_content_type(media_type):
 ############################################################
 # Create a New Account
 ############################################################
+
+
 @app.route("/accounts", methods=["POST"])
 def create_account():
     """Creates an Account"""
@@ -69,6 +77,8 @@ def create_account():
 ############################################################
 # List All Accounts
 ############################################################
+
+
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """Returns all Accounts"""
@@ -80,6 +90,8 @@ def list_accounts():
 ############################################################
 # Read a Single Account
 ############################################################
+
+
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def get_account(account_id):
     """Returns an Account by ID"""
@@ -92,6 +104,8 @@ def get_account(account_id):
 ############################################################
 # Update an Existing Account
 ############################################################
+
+
 @app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_account(account_id):
     """Updates an Account"""
@@ -107,6 +121,8 @@ def update_account(account_id):
 ############################################################
 # Delete an Account
 ############################################################
+
+
 @app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_account(account_id):
     """Deletes an Account"""
@@ -114,5 +130,4 @@ def delete_account(account_id):
     if account:
         account.delete()
     return "", status.HTTP_204_NO_CONTENT
-
-
+    
